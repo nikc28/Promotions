@@ -29,9 +29,15 @@ namespace Promotions
                 {
                     SKU = Char.Parse(inputString.Substring(0, 1));
                 }
-                int count;
-                Int32.TryParse(Console.ReadLine(), out count);
-                CartItem item = new CartItem { SKU = SKU, Quantity = count };
+
+                inputString = Console.ReadLine();
+                int quantity;
+                
+                if(!Int32.TryParse(inputString, out quantity) || quantity <0)
+                {
+                    Console.WriteLine("Taking the quantity as 0 for SKU {0}", SKU);
+                }
+                CartItem item = new CartItem { SKU = SKU, Quantity = quantity };
                 items.Add(item);
             }
 
