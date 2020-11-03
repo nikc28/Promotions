@@ -24,18 +24,20 @@ namespace Promotions
             for (int i = 0; i < itemsCount; i++)
             {
                 char SKU;
+                Console.WriteLine("Please enter the SKUId");
                 string inputString = Console.ReadLine();
                 if(!Char.TryParse(inputString, out SKU))
                 {
-                    SKU = Char.Parse(inputString.Substring(0, 1));
+                    SKU = Char.Parse(inputString.Substring(0, 1).ToUpper());
                 }
 
+                Console.WriteLine("Please enter the quantity for SKUId: {0}", SKU);
                 inputString = Console.ReadLine();
                 int quantity;
                 
                 if(!Int32.TryParse(inputString, out quantity) || quantity <0)
                 {
-                    Console.WriteLine("Taking the quantity as 0 for SKU {0}", SKU);
+                    Console.WriteLine("Taking the quantity as 0 for SKUId: {0}", SKU);
                 }
                 CartItem item = new CartItem { SKU = SKU, Quantity = quantity };
                 items.Add(item);
@@ -43,7 +45,7 @@ namespace Promotions
 
             items.GroupBy(x => x.SKU).Select(x => new CartItem { SKU = x.Key, Quantity = x.Sum(y => y.Quantity) }).ToList();
             CalculatePrice calculatePrice = new CalculatePrice();
-            Console.WriteLine(calculatePrice.CalculateTotalPrice(items));
+            Console.WriteLine("Total Cost: {0}",calculatePrice.CalculateTotalPrice(items));
             Console.ReadKey();
         }
 
