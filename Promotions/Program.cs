@@ -43,7 +43,7 @@ namespace Promotions
                 items.Add(item);
             }
 
-            items.GroupBy(x => x.SKU).Select(x => new CartItem { SKU = x.Key, Quantity = x.Sum(y => y.Quantity) }).ToList();
+            items= items.GroupBy(x => x.SKU).Select(x => new CartItem { SKU = x.Key, Quantity = x.Sum(y => y.Quantity) }).ToList();
             CalculatePrice calculatePrice = new CalculatePrice();
             Console.WriteLine("Total Cost: {0}",calculatePrice.CalculateTotalPrice(items));
             Console.ReadKey();
